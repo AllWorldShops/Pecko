@@ -258,7 +258,7 @@
 						</style>
 						<thead>
 							<tr
-								style="border-top:1px solid black;border-bottom:1px solid black;">
+								style="border-top:1px solid black;border-bottom:1px solid black;table-layout:fixed;">
 								<t t-set="colspan" t-value="5" />
 								<th class="text-left" style="width:4%">NO</th>
 								<th class="text-left" style="width:15%">PECKO PART NUMBER</th>
