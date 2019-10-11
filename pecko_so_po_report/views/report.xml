@@ -258,15 +258,15 @@
 						</style>
 						<thead>
 							<tr
-								style="border-top:1px solid black;border-bottom:1px solid black;table-layout:fixed;">
+								style="border-top:1px solid black;border-bottom:1px solid black;">
 								<t t-set="colspan" t-value="5" />
 								<th class="text-left" style="width:4%">NO</th>
-								<th class="text-left" style="width:15%">PECKO PART NUMBER</th>
+								<th class="text-left" style="width:20%">PECKO PART NUMBER</th>
 								<th class="text-left" style="width:15%">PART NUMBER</th>
 								<th class="text-left" style="width:15%">DESCRIPTION</th>
-								<th class="text-right" style="width:15%">QUANTITY</th>
+								<th class="text-center" style="width:10%">QUANTITY</th>
 								<th class="text-center" style="width:10%">NEED DATE</th>
-								<th class="text-right" style="width:10%">PRICE</th>
+								<th class="text-right" style="width:8%">PRICE</th>
 								<th t-if="display_discount" class="text-right" style="width:10%"
 									groups="sale.group_discount_per_so_line">
 									<span>DISC.(%)</span>
@@ -312,12 +312,12 @@
 										<td>
 											<span t-field="line.name" />
 										</td>
-										<td class="text-right">
+										<td class="text-center">
 											<span t-field="line.product_uom_qty" />
 											<span t-field="line.product_uom" />
 										</td>
 
-										<td>
+										<td class="text-center">
 											<span t-field="doc.date_order"
 												t-options='{"format":"dd-MMM-yyyy"}' />
 										</td>
@@ -353,7 +353,7 @@
 										</td>
 									</t>
 								</tr>
-								<t t-set="i" t-value="1" />
+							<t t-set="i" t-value="i+1" />
 
 							</t>
 						</tbody>
@@ -531,16 +531,16 @@
 								<th class="text-left" style="width:16%">PECKO PART NUMBER</th>
 								<th class="text-left" style="width:15%">PART NUMBER</th>
 								<th class="text-left" style="width:15%">DESCRIPTION</th>
-								<th class="text-left" style="width:10%">MANUFACTURER</th>
+								<th class="text-left" style="width:15%">MANUFACTURER</th>
 								<th class="text-left" style="width:10%">QUANTITY</th>
-								<th class="text-left" style="width:10%">ETA DATE</th>
+								<th class="text-center" style="width:10%">ETA DATE</th>
 								<th class="text-right" style="width:10%">PRICE</th>
 								<t t-if="o.amount_tax>0">
 									<th class="text-right" style="width:10%">TAXES</th>
 								</t>
-								<th class="text-right">
+								<th class="text-right" style="width:10%">
 									<t groups="account.group_show_line_subtotals_tax_excluded"
-										style="width:10%">AMOUNT</t>
+										>AMOUNT</t>
 									<t groups="account.group_show_line_subtotals_tax_included"
 										style="width:10%">TOTAL</t>
 								</th>
@@ -581,7 +581,7 @@
 										<span t-field="line.product_uom" />
 									</td>
 
-									<td class="text-left">
+									<td class="text-center">
 										<span t-field="o.date_planned"
 											t-options='{"format":"dd-MMM-yyyy"}' />
 									</td>
