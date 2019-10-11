@@ -105,8 +105,13 @@ class PurchaseOrder(models.Model):
         for rec in self:
             rec.picking_ids.write({'attn': self.attn.id})
             
-        for loop in rec.picking_ids.move_ids_without_package:
-            loop.customer_part_no = loop.product_id.name
+        # for loop in rec.picking_ids.move_ids_without_package:
+        #     loop.customer_part_no = loop.product_id.name
+        for loop in rec.picking_ids:
+            if loop.move_ids_without_package:
+                for line in loop.move_ids_without_package:
+                    line.customer_part_no = line.product_id.name
+
         return res
 
 class PurchaseOrderLine(models.Model):   

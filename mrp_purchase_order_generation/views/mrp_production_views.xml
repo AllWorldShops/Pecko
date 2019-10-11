@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="mrp_production_form_view_mrp_order_generation"
+			model="ir.ui.view">
+			<field name="name">mrp.production.order.generation.form</field>
+			<field name="model">mrp.production</field>
+			<field name="inherit_id" ref="mrp.mrp_production_form_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_assign']" position="after">
+					<button name="action_purchase_order" string="Order"
+						type="object" class="oe_highlight"
+						attrs="{'invisible': ['|','|',('availability','in',['assigned']),('purchase_order_id','!=',[])]}" />
+				</xpath>
+				<field name="project" position="after">
+					<field name="purchase_order_id" invisible='0'
+						widget="many2many_tags" />
+					<!-- <field name="manufacture_order_id" invisible='0' widget="many2many_tags"/> -->
+					<field name="mo_name" invisible="1" />
+				</field>
+				<xpath expr="//sheet/div[1]" position="inside">
+					<button type="object" name="action_view_purchase_order_form"
+						class="oe_stat_button" icon="fa-shopping-cart" string="Purchased"
+						attrs="{'invisible': [('purchase_order_id','=',[])]}" />
+					<button type="object" name="action_view_mrp_order_form"
+						class="oe_stat_button" icon="fa-list-alt" string="Manufactured"
+						attrs="{'invisible': [('purchase_order_id','=',[])]}" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

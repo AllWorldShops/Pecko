@@ -138,15 +138,15 @@
                     </table>
                     <br/>
                     <t t-set="product_stock_uom_qty" t-value="0" />
-                    <table class="table table-condensed" name="invoice_line_table" style="line-height:4pt;text-color:black;font-size:13px;">
+                    <table class="table table-condensed" name="invoice_line_table" style="line-height:4pt;text-color:black;font-size:13px;table-layout: fixed;">
                         <thead>
                             <tr>
-                                <th class="text-left" style="width:7%">Pos.No</th>
+                                <th class="text-left" style="width:9%">Pos.No</th>
                                 <th class="text-left" style="width:20%">Pecko Part No</th>
-                                <th class="text-left" style="width:15%">Part No</th>
-                                <th class="text-left" style="width:15%">Description</th>
-                                <th class="text-left" style="width:20%">Delivered Qty</th>
-                                <th class="text-left" style="width:20%">BackOrder Qty</th>
+                                <th class="text-left" style="width:20%">Part No</th>
+                                <th class="text-left" style="width:30%">Description</th>
+                                <th class="text-left" style="width:13%">Delivered Qty</th>
+                                <th class="text-left" style="width:16%">BackOrder Qty</th>
                             </tr>
                         </thead>
                         <tbody class="invoice_tbody" style="line-height:12pt;">

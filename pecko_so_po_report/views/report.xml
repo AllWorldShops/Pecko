@@ -399,7 +399,7 @@
 							<br />
 
 							<span>DATE  	  :	<strong>
-									<span t-field="o.date_planned" t-options='{"format": "dd-MMMM-yyyy"}' />
+									<span t-field="o.date_order" t-options='{"format": "dd-MMM-yyyy"}' />
 								</strong>
 							</span>
 
@@ -463,7 +463,7 @@
 									</td>
 
 									<td class="text-left">
-										<span t-field="o.date_planned" t-options='{"format": "dd-MMMM-yyyy"}' />
+										<span t-field="o.date_planned" t-options='{"format": "dd-MMM-yyyy"}' />
 									</td>
 									<td class="text-right">
 										<span t-field="line.price_unit" />
