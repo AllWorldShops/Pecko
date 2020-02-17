@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <odoo>
+    <data>
+        <record model="ir.ui.view" id="customer_invoice_option_view">
+        <field name="name">customer.invoice.option.view</field>
+
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='purchase']" position="after">
+                <group string="Invoicing Policy">
+                <field name="invoice_option"/></group>
+            </xpath>
+        </field>
+        </record>
+        
+        <record id="view_schedule_date_config_settings_inherit"
+			model="ir.ui.view">
+			<field name="name">res.config.settings.inherit</field>
+			<field name="model">res.config.settings</field>
+			<field name="inherit_id" ref="sale.res_config_settings_view_form" />
+			<field name="arch" type="xml">
+				<div class="row mt16 o_settings_container" position="after">
+					<h2>Invoice Date based on (From DO)</h2>
+					<div class="row mt16 o_settings_container" id="schedule_date">
+						<div class="col-xs-12 col-md-6 o_setting_box" id="eu_service">
+							<div class="o_setting_right_pane">
+								<field name="scheduled_date_invoice" widget="radio"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</field>
+		</record>
+    </data>
+</odoo>

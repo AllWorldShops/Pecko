@@ -56,5 +56,6 @@ class AccountMove(models.Model):
     
     @api.multi
     def post(self, invoice=False):
-        self.post_user = self.env.user.id
-        return super(AccountMove, self).post()
+        res = super(AccountMove, self).post()
+        self.write({'post_user':self.env.user.id})
+        return res

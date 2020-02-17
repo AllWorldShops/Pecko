@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="purchase_order_bond_nonbond_form_view_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='old_po_no']" position="after">
+                    <field name="landing_duty" readonly="1"/>
+            </xpath>  
+             <xpath expr="//field[@name='taxes_id']" position="after">
+                    <field name="tax_mandatory" invisible="1"/>
+            </xpath> 
+            
+             <xpath expr="//field[@name='taxes_id']" position="attributes">
+                  <attribute name="attrs">{'required': [('tax_mandatory', '=', True)],'readonly': [('tax_mandatory', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="sale_order_bond_nonbond_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="before">
+                    <field name="tax_mandatory" invisible="1"/>
+            </xpath> 
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                  <attribute name="attrs">{'required': [('tax_mandatory', '=', True)],'readonly': [('tax_mandatory', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="product_product_account_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_account_expense_id']" position="after">
+                    <field name="debit_account_id"/>
+            </xpath>
+            <xpath expr="//field[@name='property_account_expense_id']" position="attributes">
+                    <attribute name="string">Credit Account</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo> 

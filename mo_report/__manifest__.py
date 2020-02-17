@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'MO Report',
     'version': '12.0',
-    'category': 'MRP',
-    'description': """
-    MO Report
-    """,
+    'author': 'PPTS [India] Pvt.Ltd.',
     'website': 'https://www.pptssolutions.com',
+    'category': 'MRP',
+    'description': """Manufacture PDF Report""",
     'depends': ['stock','account_tax_code','custom_mrp'],
     'data': [
         'report/mo_report.xml',

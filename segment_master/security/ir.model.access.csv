@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_segement_master_settings,settings.segment.master,segment_master.model_segment_master,base.group_system,1,1,1,1

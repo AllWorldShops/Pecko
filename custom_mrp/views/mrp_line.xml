@@ -13,6 +13,9 @@
         	<xpath expr="//field[@name='company_id']" position="after">
         		<field name="project"/>
         	</xpath>
+        	<xpath expr="//form/header/button[@name='post_inventory']" position="replace">
+                <button name="post_inventory" string="Post Inventory" type="object" attrs="{'invisible': [('post_visible', '=', False)]}"/>
+            </xpath>
         	<xpath expr="//field[@name='move_raw_ids']" position="replace">
 				<group>
 					<field name="move_raw_ids" context="{'final_lots': show_final_lots, 'form_view_ref': 'mrp.view_stock_move_lots', 'default_location_id': location_src_id, 'default_location_dest_id': production_location_id, 'default_state': 'confirmed', 'default_raw_material_production_id': id}" attrs="{'readonly': [('is_locked', '=', True)]}" nolabel="1">

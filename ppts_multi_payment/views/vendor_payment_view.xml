@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data> 
+			<!-- Form -->
+		<record id="vendor_multi_payment_form" model="ir.ui.view">
+			<field name="name">vendor.multi.payment.form</field>
+			<field name="model">vendor.multi.payment</field>
+			<field name="arch" type="xml">
+				<form string="Account Multi Payment">
+					<header>
+						<button name="create_payments" string="Validate" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+						<button name="cancel_payment" string="Cancel" attrs="{'invisible':[('state','!=','posted')]}" type="object"/>
+						<button name="reset_to_draft" string="Reset to Draft" attrs="{'invisible':[('state','!=','cancel')]}" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+					</header>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button class="oe_stat_button" name="open_journal_entries" string="Journal Items" type="object" icon="fa-bars" attrs="{'invisible':['|',('state','!=','posted'),('account_move_id','=',False)]}"/>
+						</div>
+						<h1 class="mt0">
+							<field name="name" class="oe_inline" readonly="1"/>
+						</h1>
+						<group>
+							<group>
+								<field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="paid_amount" required="1" attrs="{'readonly':[('state','!=','draft')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="debit_amount" invisible="1"/>
+								<field name="journal_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<!-- <field name="currency_rate" attrs="{'readonly':[('state','!=','draft')]}"/> -->
+							</group>
+							<group>
+								<field name="payment_date" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="communication" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="currency_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+								<field name="payment_method_id" />
+								<field name="payment_type" invisible="1"/>
+								<field name="partner_type" invisible="1"/>
+								<field name="account_move_id" readonly="1" attrs="{'invisible':[('account_move_id','=',False)]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Payment Information">
+								<label for="debit_line_ids" string="Debit"/>
+								<field name="debit_line_ids" widget="one2many" attrs="{'readonly':[('state','!=','draft')]}">
+									<tree editable="bottom" string="Invoices" sum="amount_to_pay">
+										<field name="description"/>
+										<field name="invoice_id"/>
+										<field name="invoice_date"/>
+										<field name="amount_invoice" invisible="1"/>
+										<field name="amount_residual" invisible="1"/>
+										<field name="amount_invoice_dup" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="amount_residual_dup" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="currency_id"/>
+										<!-- <field name="currency_rate"/> -->
+										<field name="full_reconcile"/>
+										<field name="inverse_val" invisible="1"/>
+										<field name="amount_to_pay" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="amount_reconcile" invisible="1"/>
+									</tree>
+								</field>
+								<group></group>
+								<label for="credit_line_ids" string="Credit"/>
+								<field name="credit_line_ids" widget="one2many" attrs="{'readonly':[('state','!=','draft')]}">
+									<tree editable="bottom" string="Invoices" sum="amount_to_pay">
+										<field name="description"/>
+										<field name="invoice_id"/>
+										<field name="payment_id"/>
+										<field name="invoice_date"/>
+										<field name="amount_invoice" invisible="1"/>
+										<field name="amount_residual" invisible="1"/>
+										<field name="amount_invoice_dup" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="amount_residual_dup" readonly="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="currency_id"/>
+										<!-- <field name="currency_rate"/> -->
+										<field name="inverse_val" invisible="1"/>
+										<field name="full_reconcile"/>
+										<field name="amount_to_pay" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+										<field name="amount_reconcile" invisible="1"/>
+									</tree>
+								</field>
+								<group>
+									<group>
+										<field name="payment_difference" widget='monetary' attrs="{'invisible':[('payment_difference','&lt;',0.0)]}" options="{'currency_field': 'currency_id'}"/>
+										<field name="writeoff_account_id" attrs="{'invisible':[('payment_difference','&lt;=',0.0)], 'required':[('payment_difference','>',0.0)]}"/>
+										<field name="writeoff_label" attrs="{'invisible':[('payment_difference','&lt;=',0.0)], 'required':[('payment_difference','>',0.0)]}"/>
+									</group>
+									<group></group>
+								</group>
+								<field name="note" placeholder="Add an Internal note.." nolabel="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+	
+		<record id="vendor_multi_payment_tree" model="ir.ui.view">
+			<field name="name">vendor.multi.payment.tree</field>
+			<field name="model">vendor.multi.payment</field>
+			<field name="arch" type="xml">
+				<tree string="Account Multi Payment">
+					<field name="account_move"/>
+					<field name="name"/>
+					<field name="journal_id"/>
+					<field name="payment_date"/>
+					<field name="partner_id"/>
+					<field name="paid_amount"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+	
+		<record id="view_vendor_bulk_payment_search" model="ir.ui.view">
+			<field name="name">vendor.multi.payment.search</field>
+			<field name="model">vendor.multi.payment</field>
+			<field name="arch" type="xml">
+				<search string="Payments">
+					<field name="name" filter_domain="[('name','ilike',self)]" string="Description"/>
+					<separator/>
+					<field name="partner_id"/>
+					<field name="journal_id"/>
+					<field name="account_move_id"/>
+					<separator/>
+					<filter string="Draft" domain="[('state','=','draft')]" name='state_draft'/>
+					<filter string="Posted" domain="[('state','=','posted')]" name='state_posted'/>
+					<filter string="Cancelled" domain="[('state','=','cancel')]" name='state_cancel'/>
+					<separator/>
+					<filter string="Partner" domain="[]" name='partner_id' context="{'group_by': 'partner_id'}"/>
+					<filter string="Journal" domain="[]" name='journal_id' context="{'group_by': 'journal_id'}"/>
+					<filter string="State" domain="[]" name='state' context="{'group_by': 'state'}"/>
+					<filter string="Currency" domain="[]" name='currency_id' context="{'group_by': 'currency_id'}" groups="base.group_multi_currency"/>
+				</search>
+			</field>
+		</record>
+	
+		<!-- Action View -->
+		<record id="vendor_multi_payment_action" model="ir.actions.act_window">
+			<field name="name">Bulk Payments</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">vendor.multi.payment</field>
+			<field name="view_id" ref="vendor_multi_payment_tree"/>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'default_payment_type':'outbound','default_partner_type':'supplier'}</field>
+			<field name="search_view_id" ref="view_vendor_bulk_payment_search"/>
+		</record>
+	
+		<!-- Menu Details -->
+		<menuitem id="vendor_multi_payment_menu" name="Bulk Payments" parent="account.menu_finance_payables" 
+		sequence="10" action="vendor_multi_payment_action" groups="account.group_account_manager"/>
+		
+	</data>	
+</odoo>

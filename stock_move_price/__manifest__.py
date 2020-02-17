@@ -3,13 +3,11 @@
 {
     'name': 'Stock move price',
     'version': '12.0',
-    'category': 'Inventory',
-    'sequence': 50,
-    'summary': 'Stock move price',
     'author': 'PPTS [India] Pvt.Ltd.',
     'website': "http://www.pptssolutions.com",
+    'category': 'Inventory',
+    'description': """Tracking stock move price, created date and updated date""",
     'depends': ['base','stock'],
-    'description': """""",
     'data': [
         'views/stock_move_price_view.xml',
     ],

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- Currency rate update wizard -->
+
+		<record id="wizard_currency_rate_update_form" model="ir.ui.view">
+			<field name="name">currency.rate.update.form</field>
+			<field name="model">currency.rate.update</field>
+			<field name="arch" type="xml">
+				<form string="Currency updater">
+					<group>
+						<field name="currency_rate" />
+						<field name="dup_inverse_val" readonly="0"/>
+						<field name="dup_invoice_date" readonly="1"/>
+						<field name="inverse_val" invisible="1"/>
+						<field name="invoice_date" invisible="1"/>
+					</group>
+					<footer>
+						<button string='Done' name="Done" type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Currency rate update Action -->
+
+		<record id="action_currency_rate_update" model="ir.actions.act_window">
+			<field name="name">Currency rate update</field>
+			<field name="res_model">currency.rate.update</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_currency_rate_update_form" />
+			<field name="target">new</field>
+		</record>
+
+		<!-- Payment Currency rate update wizard -->
+
+		<record id="wizard_payment_currency_rate_update_form" model="ir.ui.view">
+			<field name="name">payment.currency.rate.update.form</field>
+			<field name="model">payment.currency.rate.update</field>
+			<field name="arch" type="xml">
+				<form string="Currency updater">
+					<group>
+						<field name="currency_rate" />
+						<field name="dup_inverse_val" readonly="0"/>
+						<field name="dup_payment_date" readonly="1"/>
+						<field name="inverse_val" invisible="1"/>
+						<field name="payment_date" invisible="1"/>
+					</group>
+					<footer>
+						<button string='Done' name="Done" type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Payment Currency rate update Action -->
+
+		<record id="action_currency_rate_update" model="ir.actions.act_window">
+			<field name="name">Currency rate update</field>
+			<field name="res_model">payment.currency.rate.update</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_payment_currency_rate_update_form" />
+			<field name="target">new</field>
+		</record>
+	</data>
+</odoo>

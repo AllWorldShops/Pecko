@@ -3,6 +3,8 @@ from odoo import api, fields, models
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo import api, fields, models, SUPERUSER_ID, _
+from odoo.exceptions import AccessError, UserError
+
 
 class Product(models.Model):   
     _inherit = "product.product"
@@ -68,8 +70,9 @@ class StockPicking(models.Model):
     
     @api.model
     def create(self, vals):
-        sale_id = self.env['sale.order'].search([('name','=',vals['origin'])])
-        vals['customer_po_no'] = sale_id.customer_po_no
+        if vals.get('origin'):
+            sale_id = self.env['sale.order'].search([('name','=',vals['origin'])])
+            vals['customer_po_no'] = sale_id.customer_po_no
         return super(StockPicking, self).create(vals)
     
 class StockMove(models.Model):   
@@ -105,8 +108,16 @@ class PurchaseOrder(models.Model):
         for rec in self:
             rec.picking_ids.write({'attn': self.attn.id})
             
-        for loop in rec.picking_ids.move_ids_without_package:
-            loop.customer_part_no = loop.product_id.name
+        # for loop in rec.picking_ids.move_ids_without_package:
+        #     loop.customer_part_no = loop.product_id.name
+        for loop in rec.picking_ids:
+            if loop.move_ids_without_package:
+                for line in loop.move_ids_without_package:
+                    line.customer_part_no = line.product_id.name
+                    
+        if not self.partner_id.segment_master_id:   
+            raise UserError(_("Please Configure Segment In Vendor Master"))      
+
         return res
 
 class PurchaseOrderLine(models.Model):   
