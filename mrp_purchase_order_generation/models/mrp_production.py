@@ -38,28 +38,25 @@ class MrpProduction(models.Model):
             #purchase order creation
             for key,val in buy.items():
                 record_id = []
-                order_id = self.env['purchase.order'].create({
-                        'partner_id': key.id,
-                        'company_id': self.company_id.id,
-                        'currency_id': key.with_context(force_company=self.company_id.id).property_purchase_currency_id.id or self.env.user.company_id.currency_id.id,
-                        'origin': self.name,
-                        'date_order': datetime.today(),
-                        'segment_master_id' : key.segment_master_id.id, 
-                        })
-                for line in val:
-                    tax_mandatory = False 
-                    if key.segment_master_id.code == 'local':
-                        if line['product_id'].categ_id.invat_local == True:
-                            tax_mandatory = True
-                        else:
-                            tax_mandatory = False   
-        
-                    if key.segment_master_id.code == 'overseas':
-                        if line['product_id'].categ_id.invat_overseas == True:
-                            tax_mandatory = True
-                        else:
-                            tax_mandatory = False
-                    line_id = self.env['purchase.order.line'].create({
+                print(key.name,key)
+                purchase_order_exist_ids = self.env['purchase.order'].search([('partner_id','=',key.id),('state','=','draft')],limit=1)
+                
+                print(purchase_order_exist_ids)
+                if purchase_order_exist_ids:
+                    for line in val:
+                        tax_mandatory = False 
+                        if key.segment_master_id.code == 'local':
+                            if line['product_id'].categ_id.invat_local == True:
+                                tax_mandatory = True
+                            else:
+                                tax_mandatory = False   
+            
+                        if key.segment_master_id.code == 'overseas':
+                            if line['product_id'].categ_id.invat_overseas == True:
+                                tax_mandatory = True
+                            else:
+                                tax_mandatory = False
+                        line_id = self.env['purchase.order.line'].create({
                                                 'name': line['product_id'].name,
                                                 'product_qty': line['qty'],
                                                 'product_id': line['product_id'].id,
@@ -67,11 +64,49 @@ class MrpProduction(models.Model):
                                                 'price_unit': line['product_id'].lst_price,
                                                 'date_planned': datetime.today(),
     #                                             'taxes_id': [(6, 0, taxes_id.ids)],
-                                                'order_id': order_id.id,
+                                                'order_id': purchase_order_exist_ids.id,
                                                 'tax_mandatory':tax_mandatory or False,
                                             })
-                record_id.append(order_id.id)
-                self.write({'purchase_order_id' :  [(4, line_itm) for line_itm in record_id]})
+                    record_id.append(purchase_order_exist_ids.id)
+                    self.write({'purchase_order_id' :  [(4, line_itm) for line_itm in record_id]})        
+                    
+
+                else:
+                    print("elseee")
+                    order_id = self.env['purchase.order'].create({
+                            'partner_id': key.id,
+                            'company_id': self.company_id.id,
+                            'currency_id': key.with_context(force_company=self.company_id.id).property_purchase_currency_id.id or self.env.user.company_id.currency_id.id,
+                            'origin': self.name,
+                            'date_order': datetime.today(),
+                            'segment_master_id' : key.segment_master_id.id, 
+                            })
+                    for line in val:
+                        tax_mandatory = False 
+                        if key.segment_master_id.code == 'local':
+                            if line['product_id'].categ_id.invat_local == True:
+                                tax_mandatory = True
+                            else:
+                                tax_mandatory = False   
+            
+                        if key.segment_master_id.code == 'overseas':
+                            if line['product_id'].categ_id.invat_overseas == True:
+                                tax_mandatory = True
+                            else:
+                                tax_mandatory = False
+                        line_id = self.env['purchase.order.line'].create({
+                                                    'name': line['product_id'].name,
+                                                    'product_qty': line['qty'],
+                                                    'product_id': line['product_id'].id,
+                                                    'product_uom': line['product_id'].uom_po_id.id,
+                                                    'price_unit': line['product_id'].lst_price,
+                                                    'date_planned': datetime.today(),
+        #                                             'taxes_id': [(6, 0, taxes_id.ids)],
+                                                    'order_id': order_id.id,
+                                                    'tax_mandatory':tax_mandatory or False,
+                                                })
+                    record_id.append(order_id.id)
+                    self.write({'purchase_order_id' :  [(4, line_itm) for line_itm in record_id]})
             
 #             for val in manufacture:
             rec_id = []

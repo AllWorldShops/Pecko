@@ -52,5 +52,36 @@
             </field>
         </field>
     </record>
-
+    
+    
+    <record id="res_config_settings_view_form_inherit_inventory_location" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.location</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="35"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+             <xpath expr="//div[hasclass('app_settings_block')]/div/div[@id='mrp_mps']" position="inside">
+                 <!-- <div class="o_setting_left_pane">
+                     <field name="stock_location_ids"/>
+                 </div>
+                 <div class="o_setting_right_pane">
+                     <label for="stock_location_ids"/>
+                     <div class="text-muted">
+                         Select Locations.
+                     </div>
+                     <div class="content-group" id="content_mrp_mps"/>
+                 </div> -->
+                 <div class="o_setting_left_pane">
+                 </div>
+                 <div class="o_setting_right_pane">
+                      <div class="content-group">
+                          <div class="row mt16">
+                              <label string="Locations" for="stock_location_ids" class="col-lg-3"/>
+                              <field name="stock_location_ids" widget="many2many_tags"/>
+                          </div>
+                      </div>
+                 </div>
+            </xpath>
+          </field>
+    </record>
 </odoo>

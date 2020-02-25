@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 
 
 class ReportMrpBomCurrentStockXlsx(models.AbstractModel):
-    _name = 'report.mrp_bom_current_stock.report_mrpbom_current_stock_xlsx'
+    _name = 'report.multi_level_bom_check.report_mrpbom_current_stock_xlsx'
     _inherit = 'report.report_xlsx.abstract'
 
     @staticmethod

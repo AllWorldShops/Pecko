@@ -26,3 +26,20 @@ class MrpBomLine(models.Model):
         related='bom_id.location_id',
         store=True,
     )
+    
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
+    
+    
+    stock_location_ids = fields.Many2many(
+        comodel_name='stock.location',
+        string='Location',related='company_id.stock_location_ids',readonly=False,
+    )
+    
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+    
+    stock_location_ids = fields.Many2many(
+            string='Location',
+            comodel_name='stock.location',
+        )    
