@@ -111,6 +111,7 @@ class BomRouteCurrentStock(models.TransientModel):
             
             vals_line = {
                 'product_id': bom_line.product_id.id,
+                'product_name':bom_line.product_id.name,
                 'bom_line': bom_line.id,
                 'bom_level': level,
                 'product_qty': bom_line.product_qty * factor * qty_produce_multi,
@@ -187,9 +188,12 @@ class BomRouteCurrentStockLine(models.TransientModel):
         comodel_name='mrp.bom.current.stock',
         readonly=True
     )
+    product_name = fields.Char(
+        readonly=True,string="Product"
+    )
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='Product Variant',
+        string='Ref No.',
         readonly=True,
     )
     bom_level = fields.Integer(

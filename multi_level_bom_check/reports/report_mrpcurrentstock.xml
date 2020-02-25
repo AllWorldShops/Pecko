@@ -37,6 +37,7 @@
                                 </tr> -->
                                 <tr>
                                     <th>Level</th>
+                                    <th>Ref No.</th>
                                     <th>Product</th>
                                     <th>Product Quantity</th>
                                    	<th>Reserved Quantity</th>
@@ -57,9 +58,12 @@
 	                                        <span t-field="l.bom_level"/>
 	                                    </td>
 	                                    <td>
+	                                        <span t-field="l.product_id.default_code"/>
+	                                    </td>
+	                                    <td>
 	                                        <span style="color: white;"
 	                                              t-esc="'... '*(l.bom_level)"/>
-	                                        <span t-esc="l.product_id.display_name"/>
+	                                        <span t-esc="l.product_id.name"/>
 	                                    </td>
 	                                    <td>
 	                                        <span t-esc="l.product_qty"/>

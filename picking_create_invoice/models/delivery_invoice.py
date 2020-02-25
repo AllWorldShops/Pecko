@@ -94,7 +94,10 @@ class DeliveryInvoice(models.Model):
                             inv_data['date_invoice'] = datetime.now().strftime('%Y-%m-%d')
                         invoice = inv_obj.create(inv_data)
                         if invoice:
-                            pick_id.invoice_created = True
+                            if not context.get('picking_id'):
+                                pass
+                            else:
+                                pick_id.invoice_created = True
                         
                         references[invoice] = order
                         invoices[group_key] = invoice
