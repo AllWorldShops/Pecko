@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="stock_picking_bond_nonbond_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.picking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+			<xpath expr="//field[@name='origin']" position="after">
+                    <field name="landed_cost_id" readonly="1" attrs="{'invisible':[('state','in',('draft','waiting','confirmed','assigned','cancel'))]}"/>
+            </xpath> 
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="journal_entry_id" readonly="1"/>
+            </xpath> 
+            <xpath expr="//field[@name='move_ids_without_package']/tree//field[@name='quantity_done']" position="after">
+				 <field name="is_landing" readonly="1"/>
+			</xpath>
+            
+        </field>
+    </record>
+    
+    <record id="stock_landed_cost_bond_nonbond_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.landed.cost</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+			 <xpath expr="//field[@name='picking_ids']" position="attributes">
+				<attribute name="readonly">True</attribute>
+			</xpath> 
+			<xpath expr="//field[@name='cost_lines']/tree//field[@name='split_method']" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</xpath> 
+			<xpath expr="//field[@name='account_journal_id']" position="attributes">
+				<attribute name="readonly">True</attribute>
+			</xpath>
+			<xpath expr="//field[@name='valuation_adjustment_lines']/tree//field[@name='weight']" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</xpath> 
+			<xpath expr="//field[@name='valuation_adjustment_lines']/tree//field[@name='volume']" position="attributes">
+				<attribute name="invisible">True</attribute>
+			</xpath> 
+        </field>
+    </record>
+</odoo>
+

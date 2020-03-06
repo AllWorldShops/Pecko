@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_segment_master_form" model="ir.ui.view">
+		<field name="name">segment.master.form</field>
+		<field name="model">segment.master</field>
+		<field name="arch" type="xml">
+			<form create="false" delete="false">
+				<sheet>
+					<group>
+						<group>
+							<field name="name" readonly="1"/>
+							<field name="code" readonly="1"/>
+						</group>
+						<group>
+							<field name="so_sequence_id" />
+							<field name="po_sequence_id" />
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_segment_master_tree" model="ir.ui.view">
+		<field name="name">segment.master.tree</field>
+		<field name="model">segment.master</field>
+		<field name="arch" type="xml">
+			<tree create="false" delete="false">
+				<field name="name" />
+				<field name="code" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_segment_master_form" model="ir.actions.act_window">
+		<field name="name">Segment Master</field>
+		<field name="res_model">segment.master</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Create a Segment Master
+			</p>
+		</field>
+	</record>
+
+	<menuitem action="action_segment_master_form" id="menu_action_segment_master_form" parent="base.menu_users" sequence="5"/>
+</odoo>

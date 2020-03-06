@@ -3,12 +3,11 @@
 {
     "name": "Show sheets with full width",
     "version": "12.0",
-    "summary": "Use the whole available screen width when displaying sheets",
+    'author': 'PPTS [India] Pvt.Ltd.',
+    'website': "http://www.pptssolutions.com",
     "category": "Tools",
-    'website': 'https://www.pptssolutions.com',
-    "depends": [
-        'web',
-    ],
+    "description": "Use the whole available screen width when displaying sheets",
+    "depends": ['web'],
     "data": [
         "templates/assets.xml",
     ],

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="mrp_segment_bonded_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='purchase_order_id']" position="after">
+        		<field name="segment_master_id" invisible="1"/>
+        		 <label for="location_wh_id"/>
+                 <div class="o_row">
+  				 <field name="location_wh_id" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>
+                 <button name="action_is_locked_assign" string="Update"
+				 type="object" class="oe_highlight" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>
+                 </div>
+        		<field name="is_auto_assign" invisible="1"/>
+        		<field name="picking_assign_id"/>
+        		<field name="is_picking_auto_assign" invisible="1"/>
+        	</xpath>
+        	<xpath expr="//field[@name='move_raw_ids']/tree/field[@name='quantity_done']" position="after">
+				<field name="available_location_wh_id" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>   
+				<field name="available_qty_done" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>   
+                <button name="action_create_move" string="Create Internal Nove" type="object" icon="fa-play" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>
+		        <field name="is_internal_move" invisible="1"/> 
+		        <field name="is_auto_assign" invisible="1"/>
+		    </xpath>
+		    <xpath expr="//form/header/button[@name='action_toggle_is_locked']" position="after">
+                    <button name="action_internal_move_picking" string="Auto Assign Picking"
+                    type="object" class="oe_highlight" attrs="{'invisible':['|',('is_auto_assign','=', False),('is_picking_auto_assign','=',True)]}"/>
+            </xpath>
+        </field>
+     </record>
+</odoo>
+     
+     
+     
+     					    
+     
+     
+     
+     

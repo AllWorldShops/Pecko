@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="invoice_option_view">
+			<field name="name">invoice.option.view</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//group[@name='sales_person']" position="inside">
+					<field name="invoice_option" />
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="invoice_control_view">
+			<field name="name">invoice.control.view</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//header/button[1]" position="before">
+					<button name="pick_create_invoices" string="Create Invoice"
+						type="object" class="btn-primary"
+						attrs="{'invisible': ['|','|',
+                        ('state','!=','done'),('picking_type_code','in',['incoming']),'|',('invoice_created','=',True)]}" />
+					 <button name="pick_create_invoices" string="Create Bill" type="object" 
+						class="btn-primary" attrs="{'invisible': ['|','|',('state','!=','done'),('billing_policy','=','no_bill'),'|',('picking_type_code','not in',['incoming']),'|',('invoice_created','=',True)]}" />
+				</xpath>
+				<xpath
+					expr="//page[@name='extra']/group/group/field[@name='group_id']"
+					position="after">
+					<field name="invoice_control" />
+					<field name="journal_id" attrs="{'invisible': ['|',('picking_type_code','not in',['incoming']),
+                        ('state','not in',['assigned','done']),'|',('invoice_created','=',True)],'required':[('state','=','assigned'), ('picking_type_code','in',['incoming'])],'readonly':[('state','=','done')]}"
+						domain="[('type', '=','purchase')]" />
+					<field name="invoice_created" invisible="1" />
+				</xpath>
+				<xpath
+					expr="//page[@name='extra']/group/group[1]/field[@name='move_type']"
+					position="after">
+					<field name="billing_policy" attrs="{'readonly':[('state','=','done')]}"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="sale_order_view_form_inherit" model="ir.ui.view">
+			<field name="name">sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id"
+				ref="sale_management.sale_order_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[4]" position="replace">
+					<button name="%(sale.action_view_sale_advance_payment_inv)d"
+						string="Create Invoice" type="action" class="btn-primary"
+						attrs="{'invisible': ['|',('invoice_option','=','on_delivery'),('invoice_status', '!=', 'to invoice')]}" />
+				</xpath>
+				<xpath expr="//button[3]" position="replace">
+					<button name="%(sale.action_view_sale_advance_payment_inv)d"
+						string="Create Invoice" type="action"
+						context="{'default_advance_payment_method': 'percentage'}"
+						attrs="{'invisible': ['|','|',('invoice_option','=','on_delivery'),('invoice_status', '!=', 'no'),('state', '!=', 'sale')]}" />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="purchase_order_form_inherit" model="ir.ui.view">
+			<field name="name">purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<field name="date_approve" position="after">
+					<field name="invoice_option" />
+				</field>
+			</field>
+		</record>
+		<!--<record id="action_view_sale_advance_payment_inv_2" model="ir.actions.act_window"> -->
+		<!--<field name="name">Invoice Order</field> -->
+		<!--<field name="type">ir.actions.act_window</field> -->
+		<!--<field name="res_model">sale.advance.payment.inv</field> -->
+		<!--<field name="view_type">form</field> -->
+		<!--<field name="view_mode">form</field> -->
+		<!--<field name="target">new</field> -->
+		<!--<field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/> -->
+		<!--</record> -->
+
+	</data>
+</odoo>

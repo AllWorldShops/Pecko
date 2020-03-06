@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="product_category_bond_nonbond_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//group[@name='account_property']" position="after">
+                       <group name="shipments">
+                        <group string="Local Shipments (Receipt)">
+                        	<field name="wh_loaction_local_id"/>
+                            <field name="duty_local"/>
+                            <field name="invat_local"/>
+                            <field name="outvat_local"/>
+                            <field name="invat_claim_local"/>
+                            <field name="outvat_claim_local"/>
+                         </group>
+                         <group string="Overseas Shipments (Receipt)">
+                          	<field name="wh_loaction_overseas_id"/>
+                            <field name="duty_overseas"/>
+                            <field name="invat_overseas"/>
+                            <field name="outvat_overseas"/>
+                            <field name="invat_claim_overseas"/>
+                            <field name="outvat_claim_overseas"/>
+                         </group>
+                       </group>
+            </xpath>  
+            <xpath expr="//group[@name='sequence']" position="after">
+	            <group>
+	              	  <field name="auto_assign"/>
+	            </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

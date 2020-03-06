@@ -1,39 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+	<record id="view_company_form_inherit" model="ir.ui.view">
+		<field name="name">res.company.form.inherit</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form" />
+		<field name="arch" type="xml">
+			<field name="street" position="after">
+				<field name="street1" />
+			</field>
+			<field name="phone" position="after">
+				<field name="fax" />
+			</field>
+		</field>
+	</record>
+
 	<record id="invoice_form_inherit" model="ir.ui.view">
-        <field name="name">account.invoice.inherit.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='name']" position="after">
-            	<field name="manufacturer_id"/>
-            </xpath> 
-            <xpath expr="//form/sheet/notebook/page/group" position="after">
+		<field name="name">account.invoice.inherit.form</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_form" />
+		<field name="arch" type="xml">
+			<xpath
+				expr="//field[@name='invoice_line_ids']//tree//field[@name='name']"
+				position="after">
+				<field name="manufacturer_id" />
+			</xpath>
+			<xpath expr="//form/sheet/notebook/page/group" position="after">
 				<group>
-					<field name="currency_help_label" nolabel='1'/>
+					<field name="currency_help_label" nolabel='1' />
 					<group>
-		            	<label for="exchange_rate" />
+						<label for="exchange_rate" />
 						<div class="o_row">
 							<field name="exchange_rate" />
 							<field name="company_currency_id" />
 						</div>
-		            	<field name="currency_conv_rate"/>
-		            	<button name="currency_values" class="btn-success" type="object" icon="fa-check" 
-		            		states="draft" string="Update currency rate as on invoice date" />
-		            </group>
-	            </group>
-            </xpath> 
-        </field>
-    </record>
-    
-    <record id="invoice_supplier_form_inherit" model="ir.ui.view">
-        <field name="name">account.invoice.inherit.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_supplier_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='name']" position="after">
-            	<field name="manufacturer_id"/>
-            </xpath> 
-        </field>
-    </record>
+						<!-- <field name="currency_conv_rate" /> -->
+						<label for="currency_conv_rate" />
+					      <div class="o_row">
+					       <field name="currency_conv_rate" />
+					       (<field name="currency_conv_rate_dup"/>)
+					      </div>
+						<button name="currency_values" class="btn-success"
+							type="object" icon="fa-check" states="draft"
+							string="Update currency rate as on invoice date" />
+					</group>
+				</group>
+			</xpath>
+			<field name="payment_term_id" position="after">
+				<field name="do_name" />
+			</field>
+		</field>
+	</record>
+
+	<record id="invoice_supplier_form_inherit" model="ir.ui.view">
+		<field name="name">account.invoice.inherit.form</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_supplier_form" />
+		<field name="arch" type="xml">
+			<xpath
+				expr="//field[@name='invoice_line_ids']//tree//field[@name='name']"
+				position="after">
+				<field name="manufacturer_id" />
+			</xpath>
+			<xpath expr="//form/sheet/notebook/page/group" position="after">
+				<group>
+					<field name="currency_help_label" nolabel='1' />
+					<group>
+						<label for="exchange_rate" />
+						<div class="o_row">
+							<field name="exchange_rate" />
+							<field name="company_currency_id" />
+						</div>
+						<field name="currency_conv_rate" />
+						<button name="currency_values" class="btn-success"
+							type="object" icon="fa-check" states="draft"
+							string="Update currency rate as on invoice date" />
+					</group>
+				</group>
+			</xpath>
+		</field>
+	</record>
 </odoo>

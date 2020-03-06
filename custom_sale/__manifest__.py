@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'Custom Sale',
     'version': '12.0',
-    'category': 'Sale',
-    'description': """
-    Enhancement in Sale module
-    """,
+    'author': 'PPTS [India] Pvt.Ltd.',
     'website': 'https://www.pptssolutions.com',
+    'category': 'Sale',
+    'description': """Enhancement in Sale module""",
     'depends': ['sale','custom_product'],
     'data': [
         'views/sale_view.xml'

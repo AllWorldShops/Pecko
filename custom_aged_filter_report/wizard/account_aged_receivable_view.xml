@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="aged_receivable_form_view">
+			<field name="name">account.aged.report.form</field>
+			<field name="model">account.aged.receivable.report</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<group>
+							<field name="report_receivable_account_id" string="Receivable Account"/>
+						</group>
+					</group>
+					<footer>
+					 <!-- <button type="action" name="%(account_reports.action_account_report_ar)d" string="Aged Receivables new" class="btn-primary" context="{'receivables_type':receivables_type}" /> -->
+	                    <button type="object" name="report_aged_receivable" string="Aged Receivable" class="btn-primary" context="{'report_receivable_account_id':context.get('report_receivable_account_id')}" />
+	                       <button string="Cancel" class="btn-default" special="cancel"/>
+	                    </footer>
+					</form>  
+			</field>
+		</record>
+
+		<record id="account_aged_receivable_report_action" model="ir.actions.act_window">
+			<field name="name">Account Receivable</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.aged.receivable.report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+  
+        <menuitem id="account_reports.menu_action_account_report_aged_receivable" name="Aged Receivables" action="account_aged_receivable_report_action" parent="account_reports.account_reports_partners_reports_menu"/>
+
+	</data>
+</odoo>

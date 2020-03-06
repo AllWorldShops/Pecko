@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     'name': 'DO Report',
     'version': '12.0',
-    'category': 'Inventory',
-    'description': """
-    DO Report
-    """,
+    'author': 'PPTS [India] Pvt.Ltd.',
     'website': 'https://www.pptssolutions.com',
+    'category': 'Inventory',
+    'description': """Delivery Order PDF Report""",
     'depends': ['stock','account_tax_code'],
     'data': [
         'report/do_report.xml',

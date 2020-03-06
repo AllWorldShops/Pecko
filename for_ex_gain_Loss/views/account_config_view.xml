@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="for_ex_gain_loss_config" model="ir.ui.view">
+            <field name="name">res.config.settings.gain.loss</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+
+               <!--  <xpath expr="//div[@class='o_setting_left_pane']" position="after">
+                        <field name="partial_payment"/>
+                    <div class="o_setting_right_pane">
+                        <label string="Create Journal Entry for Partial Payment" for="partial_payment"/>
+                    </div>
+                </xpath> -->
+
+               <!--  <xpath expr="//label[@for='group_multi_currency']" position="after">
+                    <div class="o_setting_left_pane">
+                        <field name="partial_payment"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                    <label style="padding-left:4%" string="Create Journal Entry for Partial Payment" for="partial_payment"/>
+                    </div>
+                </xpath>  -->
+                <!-- <xpath expr="//field[@name='group_multi_currency']" position="after">
+                    <div class="o_setting_left_pane">
+                        <field name="partial_payment"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label style="padding-left:4%" for="partial_payment" string="Create Journal Entry for Partial Payment"/>
+                    </div>
+                    
+                </xpath>
+ -->
+                <xpath expr="//label[@for='currency_exchange_journal_id']" position="before">
+                    <div class="o_setting_right_pane">
+                        <field name="partial_payment"/>
+                        <label for="partial_payment" string="Indicate Currency Differences for Partial Payments"/>
+                        <div class="text-muted">
+                            Create Journal Entry for Partial Payment
+                        </div>
+                    </div>
+                    <label style="padding-left:4%" string="Account Type" for="exchange_account_type"/>
+                    <field name="exchange_account_type"/>
+                    <div class='col-xs-12' style="margin-left:10px;">                  
+                        <div class='col-xs-5' style="float:left;">
+                            <label style="margin-top:7px;" string="Debit Exchange Rate Account" for="debit_account_id" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/><br/>
+                            <label style="margin-top:15px;" string="Credit Exchange Rate Account" for="credit_account_id" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                        </div>
+                        <div class='col-xs-6' style="float:left;">
+                            <field name="debit_account_id" class="oe_inline" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/><br/>
+                            <field name="credit_account_id" class="oe_inline" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//label[@for='currency_exchange_journal_id']" position="replace">
+                    <label for="currency_exchange_journal_id" class="col-md-3 o_light_label" attrs="{'invisible': [('exchange_account_type', '=', 'account')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='currency_exchange_journal_id']" position="replace">
+                    <field name="currency_exchange_journal_id" attrs="{'invisible': [('exchange_account_type', '=', 'account')]}"/>
+                </xpath>
+               <!--  <xpath expr="//field[@name='currency_exchange_journal_id']" position="after">
+                    <div>
+                    <div>
+                        <label style="padding-left:4%" string="Account Type" for="exchange_account_type"/>
+                        <field name="exchange_account_type" class="oe_inline" />
+                    </div>
+                    <div>
+                        <label style="padding-left:4%" string="Debit Exchange Rate Account" for="debit_account_id" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                        <field name="debit_account_id" class="oe_inline" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                    </div>
+                    <div>
+                        <label style="padding-left:4%" string="Credit Exchange Rate Account" for="credit_account_id" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                        <field name="credit_account_id" class="oe_inline" attrs="{'invisible': [('exchange_account_type', '!=', 'account')]}"/>
+                    </div>
+                    </div>
+                </xpath> -->
+                
+            </field>
+        </record>
+    
+    </data>
+</odoo>

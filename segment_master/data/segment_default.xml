@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+	 <data noupdate="1">
+		  <record model="segment.master" id="reason_id1">
+			   <field name="name">Local</field>
+			   <field name="code">local</field>
+		  </record>
+		  <record model="segment.master" id="reason_id2">
+			   <field name="name">Overseas</field>
+			   <field name="code">overseas</field>
+		  </record>
+	 </data>
+</odoo>
