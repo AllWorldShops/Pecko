@@ -11,7 +11,7 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="old_so_no" attrs="{'readonly': [('state', 'not in', ['draft','sent'])]}"/>
-                <field name="order_ref_old" attrs="{'readonly': [('state', 'not in', ['draft','sent'])]}"/>
+                <!-- <field name="order_ref_old" attrs="{'readonly': [('state', 'not in', ['draft','sent'])]}"/> -->
             </xpath>
 
         </field>

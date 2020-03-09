@@ -10,7 +10,7 @@ class SaleOrder(models.Model):
     amount_tax = fields.Monetary(string='Taxes', digits=dp.get_precision('Product Price'), store=True, readonly=True, compute='_amount_all')
     amount_total = fields.Monetary(string='Total', digits=dp.get_precision('Product Price'), store=True, readonly=True, compute='_amount_all', track_visibility='always', track_sequence=6)
     old_so_no = fields.Char(string='Old SO Number')
-    order_ref_old = fields.Char(string='Order Ref.(Old)')
+    # order_ref_old = fields.Char(string='Order Ref.(Old)')
     
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
