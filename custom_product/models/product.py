@@ -2,11 +2,16 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, fields, api
 
+class ResCompany(models.Model):
+    _inherit = "res.company"
+    
+    storage_location_id = fields.Many2one('stock.location',string='Storage Location')
+    
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     manufacturer_id = fields.Many2one('product.manufacturer',string='Manufacturer/Customer Name')
-    storage_location_id = fields.Many2one('stock.location',string='Storage Location')
+    storage_location_id = fields.Many2one('stock.location',string='Storage Location', company_dependent=True)
     
 # class ProductProduct(models.Model):
 #     _inherit = 'product.product'
