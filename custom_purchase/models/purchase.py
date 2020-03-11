@@ -7,6 +7,7 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
     
     old_po_no = fields.Char(string='Old PO Number')
+    old_recving_ref = fields.Char(string='Old Receiving Ref.')
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'

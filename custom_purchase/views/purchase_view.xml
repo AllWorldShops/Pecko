@@ -15,6 +15,7 @@
             </xpath>
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="old_po_no" attrs="{'readonly': [('state', 'not in', ['draft','sent'])]}"/>
+                <field name="old_recving_ref" attrs="{'readonly': [('state', 'not in', ['draft','sent'])]}"/>
             </xpath>
         </field>
     </record>
