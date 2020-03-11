@@ -10,6 +10,7 @@ class MrpProduction(models.Model):
 #     manufacture_order_id = fields.Many2many('mrp.production',string="Manufacture Order")
     mo_name = fields.Char('MO Name')
     order_generate = fields.Boolean(string='Order',default=False)
+    old_po_no = fields.Char(string='Old PO No.')
     
     @api.multi
     def action_purchase_order(self):
