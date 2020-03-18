@@ -178,6 +178,7 @@ class StockRule(models.Model):
             'product_uom_id': product_uom.id,
             'location_src_id': location_src_dest_id,
             'location_dest_id': location_src_dest_id,
+            'customer_po_no': sale_order_id.customer_po_no or False,
             'bom_id': bom.id,
             'date_planned_start': fields.Datetime.to_string(self._get_date_planned(product_id, values)),
             'date_planned_finished': values['date_planned'],

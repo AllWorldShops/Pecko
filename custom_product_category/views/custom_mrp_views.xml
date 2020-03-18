@@ -17,6 +17,9 @@
         		<field name="picking_assign_id"/>
         		<field name="is_picking_auto_assign" invisible="1"/>
         	</xpath>
+            <xpath expr="//field[@name='routing_id']" position="after">
+                <field name="customer_po_no"/>
+            </xpath>
         	<xpath expr="//field[@name='move_raw_ids']/tree/field[@name='quantity_done']" position="after">
 				<field name="available_location_wh_id" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>   
 				<field name="available_qty_done" attrs="{'invisible':[('is_auto_assign','=', False)]}"/>   
@@ -30,6 +33,18 @@
             </xpath>
         </field>
      </record>
+
+     <record id="mrp_po_no_customer_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.tree.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                    <field name="customer_po_no"/>
+            </xpath>
+        </field>
+     </record>
+     
 </odoo>
      
      

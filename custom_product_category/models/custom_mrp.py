@@ -9,6 +9,7 @@ class MrpProduction(models.Model):
     is_auto_assign = fields.Boolean("Auto Assign",compute="compute_is_auto_assign")
     picking_assign_id  = fields.Many2one('stock.picking',string='Picking',compute="compute_picking_assign_id")
     is_picking_auto_assign = fields.Boolean("Auto Assign Picking")
+    customer_po_no = fields.Char("Customer PO No")
     
     def compute_is_auto_assign(self):
         if self.product_id.categ_id.auto_assign == True:
